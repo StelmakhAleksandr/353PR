@@ -4,6 +4,7 @@
 #include "exoticDuck.h"
 #include "flyDuck.h"
 #include "normalDuck.h"
+#include "rubberDuck.h"
 #include "woodenDuck.h"
 #include <memory>
 #include <vector>

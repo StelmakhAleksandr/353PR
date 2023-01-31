@@ -1,3 +1,7 @@
+#include "decorator/coffee.h"
+#include "decorator/condiment/milk.h"
+#include "decorator/condiment/sugar.h"
+#include "decorator/tea.h"
 #include "sorthelper.h"
 #include "strategy/lake.h"
 #include "timer.h"
@@ -18,6 +22,21 @@ void sort2(vector<int>& arr)
     }
 }
 
+/*
+  Автомат з напоями
+
+  auto b = new Beverage();
+  b->addSugar();
+  b->addSugar();
+  b->addMilk();
+  b->addMilk();
+  b->addMilk();
+
+  b->getPrice();
+  b->getDescription();
+
+*/
+
 int main()
 {
     //    srand(time(0));
@@ -28,24 +47,15 @@ int main()
     //    helper.trackTime(arr, sort2);
     //    //helper.compare(arr, sort, sort2);
 
-    //    //test comment
-
     //    helper.display(arr);
 
-    /*
-        На озері плавають качки. Треба реалізувати клас озеро і качка
-    */
+    Tea tea;
+    Coffee coffee;
+    auto beverage = new Milk(new Sugar(new Sugar(new Coffee())));
 
-    Lake lake;
-    lake.insertDuck(std::make_shared<NormalDuck>());
-    lake.insertDuck(std::make_shared<NormalDuck>());
-    lake.insertDuck(std::make_shared<FlyDuck>());
-    lake.insertDuck(std::make_shared<ExoticDuck>());
-    lake.insertDuck(std::make_shared<WoodenDuck>());
-    // крякати - звичайна - вміє, екзотична - крякає незвичайно, літаюча - також вміє як і звичайна
-    // екзотична вміє літати так само як і літаюча
-
-    lake.display();
+    cout << tea.getDescription() << " " << tea.getPrice() << endl;
+    cout << coffee.getDescription() << " " << coffee.getPrice() << endl;
+    cout << beverage->getDescription() << " " << beverage->getPrice() << endl;
 
     return 0;
 }
