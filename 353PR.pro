@@ -36,6 +36,13 @@ HEADERS += \
     decorator/condiment/milk.h \
     decorator/condiment/sugar.h \
     decorator/tea.h \
+    observer/dom/layer.h \
+    observer/dom/line.h \
+    observer/dom/page.h \
+    observer/dom/rectangle.h \
+    observer/dom/shape.h \
+    observer/jsonObserver.h \
+    observer/observer.h \
     sorthelper.h \
     strategy/behavior/fly/flyBehavior.h \
     strategy/behavior/fly/noFlyBehavior.h \

@@ -2,6 +2,11 @@
 #include "decorator/condiment/milk.h"
 #include "decorator/condiment/sugar.h"
 #include "decorator/tea.h"
+#include "lib/json.hpp"
+#include "observer/dom/line.h"
+#include "observer/dom/page.h"
+#include "observer/dom/rectangle.h"
+#include "observer/jsonObserver.h"
 #include "sorthelper.h"
 #include "strategy/lake.h"
 #include "timer.h"
@@ -23,39 +28,39 @@ void sort2(vector<int>& arr)
 }
 
 /*
-  Автомат з напоями
+    Page
+        Layer
+            Rectangle
+            Line
+            Circle
+            Triangle
 
-  auto b = new Beverage();
-  b->addSugar();
-  b->addSugar();
-  b->addMilk();
-  b->addMilk();
-  b->addMilk();
+   1) make dom model
+   2) export to json
 
-  b->getPrice();
-  b->getDescription();
 
 */
 
+nlohmann::json toJson(Page& page)
+{
+    JsonObserver observer;
+    page.accept(observer);
+    return observer.json;
+}
+
 int main()
 {
-    //    srand(time(0));
-    //    SortHelper helper;
+    Line line(10, 10);
+    Rectangle rectangle(100, 100);
+    Layer layer, layer2;
+    Page page;
+    layer.shapes_.push_back(&line);
+    layer2.shapes_.push_back(&rectangle);
+    layer2.shapes_.push_back(&line);
+    page.layers_.push_back(layer);
+    page.layers_.push_back(layer2);
 
-    //    vector<int> arr;
-    //    helper.generate(arr, 100, 100);
-    //    helper.trackTime(arr, sort2);
-    //    //helper.compare(arr, sort, sort2);
-
-    //    helper.display(arr);
-
-    Tea tea;
-    Coffee coffee;
-    auto beverage = new Milk(new Sugar(new Sugar(new Coffee())));
-
-    cout << tea.getDescription() << " " << tea.getPrice() << endl;
-    cout << coffee.getDescription() << " " << coffee.getPrice() << endl;
-    cout << beverage->getDescription() << " " << beverage->getPrice() << endl;
+    cout << toJson(page).dump(4) << endl;
 
     return 0;
 }
